@@ -1,0 +1,132 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 262 83% 58%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 262 80% 56%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 262 80% 56%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 262 83% 58%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 262 83% 58%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 263.4 70% 50.4%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
+
+.auth-container {
+  background: radial-gradient(circle at 85% 15%, rgb(221, 214, 254, 0.2) 0%, rgba(217, 249, 252, 0) 25%),
+              radial-gradient(circle at 15% 85%, rgba(231, 229, 255, 0.2) 0%, rgba(228, 249, 250, 0) 25%);
+}
+
+.auth-card {
+  @apply rounded-xl border bg-card text-card-foreground shadow-sm p-6 md:p-8 w-full mx-auto animate-fade-up;
+  box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.05);
+  max-width: 90%;
+}
+
+/* Responsive card size adjustments */
+@media (min-width: 640px) {
+  .auth-card {
+    max-width: 480px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .auth-card {
+    max-width: 520px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .auth-card {
+    max-width: 560px;
+  }
+}
+
+.auth-card .form-group {
+  @apply space-y-1.5 mb-4;
+}
+
+.auth-card .form-group label {
+  @apply text-sm font-medium;
+}
+
+.auth-heading {
+  @apply text-2xl font-semibold tracking-tight mb-2;
+}
+
+.auth-subheading {
+  @apply text-sm text-muted-foreground mb-6;
+}
+
+.auth-alternate {
+  @apply mt-6 text-center text-sm text-muted-foreground;
+}
+
+.auth-alternate a {
+  @apply text-primary hover:underline font-medium;
+}
