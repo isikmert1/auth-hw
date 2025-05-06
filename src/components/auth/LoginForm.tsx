@@ -39,31 +39,31 @@ const LoginForm = () => {
     console.log("Login form submitted:", data);
 
     try {
-      const storedData = localStorage.getItem('userData');
-      if (storedData) {
-        const credentials = JSON.parse(storedData);
-        if (credentials.email === data.email && credentials.password === data.password) {
-          toast({
-            title: "Login Successful",
-            description: "You have been logged in successfully.",
-          });
-          navigate('/home');
-        } else {
-          toast({
-            title: "Login Failed",
-            description: "Invalid email or password.",
-            variant: "destructive",
-          });
-        }
+      // 1. Get the users database
+      const usersDatabaseStr = localStorage.getItem('usersDatabase');
+      const usersDatabase = usersDatabaseStr ? JSON.parse(usersDatabaseStr) : {};
+
+      // 2. Check if user exists and password matches
+      const userData = usersDatabase[data.email];
+      if (userData && userData.credentials.password === data.password) {
+        // 3. Valid login: Store current user's email
+        localStorage.setItem('currentUserEmail', data.email);
+
+        toast({
+          title: "Login Successful",
+          description: "You have been logged in successfully.",
+        });
+        navigate('/home');
       } else {
+        // 4. Invalid login
         toast({
           title: "Login Failed",
-          description: "No signup data found. Please sign up first.",
+          description: "Invalid email or password.",
           variant: "destructive",
         });
       }
     } catch (error) {
-      console.error("Error reading data from localStorage:", error);
+      console.error("Error during login process:", error);
       toast({
         title: "Error",
         description: "Could not process login.",
