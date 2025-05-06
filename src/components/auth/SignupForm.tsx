@@ -122,40 +122,31 @@ const SignupForm = () => {
   const onSubmit = (data: FormValues) => {
     console.log("Signup form submitted:", data);
 
-    const usersDatabaseStr = localStorage.getItem('usersDatabase');
-    const usersDatabase = usersDatabaseStr ? JSON.parse(usersDatabaseStr) : {};
+    const birthDate = new Date(parseInt(data.birthYear), parseInt(data.birthMonth) - 1, parseInt(data.birthDay));
+    console.log("Birth date:", birthDate);
 
-    if (usersDatabase[data.email]) {
+    try {
+      const credentials = {
+        email: data.email,
+        password: data.password
+      };
+      localStorage.setItem('userData', JSON.stringify(credentials));
+      console.log('User credentials saved to localStorage');
+
       toast({
-        title: "Signup Failed",
-        description: "This email address is already registered.",
-        variant: "destructive",
+        title: "Account created",
+        description: "Your account has been created successfully."
       });
-      return;
+
+      navigate('/login'); 
+    } catch (error) {
+      console.error("Error saving data to localStorage:", error);
+      toast({
+        title: "Error",
+        description: "Could not save signup data.",
+        variant: "destructive"
+      });
     }
-
-    usersDatabase[data.email] = {
-      credentials: {
-        email: data.email,
-        password: data.password,
-      },
-      profile: {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
-        birthDay: data.birthDay,
-        birthMonth: data.birthMonth,
-        birthYear: data.birthYear,
-      },
-    };
-
-    localStorage.setItem('usersDatabase', JSON.stringify(usersDatabase));
-
-    toast({
-      title: "Signup Successful",
-      description: "Your account has been created. Please log in.",
-    });
-    navigate('/login');
   };
 
   const passwordCheck = useMemo(() => {
